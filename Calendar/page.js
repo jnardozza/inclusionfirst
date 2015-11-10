@@ -114,12 +114,13 @@ function submitNew(){
 	var xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function() {
     if (xhttp.readyState == 4 && xhttp.status == 200) {
-      		//close the popover and reload the data source
+    	$('#calendar').fullCalendar( 'refetchEvents' );
     	}
   	}
 	xhttp.open("POST", "submitSchedule.php", true);
-	xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-	xhttp.send("request=" + request);
+	xhttp.setRequestHeader("Content-type", "application/json;charset=UTF-8");
+	xhttp.send(JSON.stringify(request));
+	console.log(JSON.stringify(request));
 
 }
 
