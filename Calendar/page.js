@@ -60,9 +60,9 @@ function submitNew(){
 
 	var request = {};
 //	request["title"] = document.getElementById('input_title').value;
-	request["client"] = document.getElementById('input_client').value;
-	request["personnel"] = document.getElementById('input_personnel').value;
-	request["service"] = document.getElementById('input_service').value;
+	request["client_id"] = document.getElementById('input_client').value;
+	request["personnel_id"] = document.getElementById('input_personnel').value;
+	request["service_id"] = document.getElementById('input_service').value;
 	request["description"] = document.getElementById('input_description').value;
 	request["dateStart"] = document.getElementById('input_dateStart').value;
 	request["dateEnd"] = document.getElementById('input_dateEnd').value;
