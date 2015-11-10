@@ -58,6 +58,7 @@ $(function() { // document ready
 
 function submitNew(){
 
+	var domList = $('[id^="input_"]');
 	var request = {};
 //	request["title"] = document.getElementById('input_title').value;
 	request["client_id"] = document.getElementById('input_client').value;
@@ -120,7 +121,6 @@ function submitNew(){
 	xhttp.open("POST", "submitSchedule.php", true);
 	xhttp.setRequestHeader("Content-type", "application/json;charset=UTF-8");
 	xhttp.send(JSON.stringify(request));
-	console.log(JSON.stringify(request));
 
 }
 
@@ -205,9 +205,11 @@ function selectEvent(event, jsEvent, view){
            	$('#selectTitle').html(event.title);
            	$('#selectBody').html(details + repeat);
            	$('#modalSelect').modal();
+   
 }
 
 function newSchedule(){
+	var title = '<input id="input_title" value="New Schedule"></input>';
 	var details = 	'<h4>Details</h4>' +
 					'<table>' +
 						'<tr>' +
@@ -285,7 +287,7 @@ function newSchedule(){
 							'<td><input id="input_saturdayTimeEnd" type="time"></input></td>' +
 						'</tr>' +
 					'</table>';
-           	$('#modalTitle').html('New Schedule');
+           	$('#modalTitle').html(title);
            	$('#modalBody').html(details + repeat);
            	$('#modalNew').modal();
 }
