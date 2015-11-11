@@ -60,61 +60,18 @@ function submitNew(){
 
 	var domList = $('[id^="input_"]');
 	var request = {};
-//	request["title"] = document.getElementById('input_title').value;
-	request["client_id"] = document.getElementById('input_client').value;
-	request["personnel_id"] = document.getElementById('input_personnel').value;
-	request["service_id"] = document.getElementById('input_service').value;
-	request["description"] = document.getElementById('input_description').value;
-	request["dateStart"] = document.getElementById('input_dateStart').value;
-	request["dateEnd"] = document.getElementById('input_dateEnd').value;
-	request["timeStart"] = document.getElementById('input_timeStart').value;
-	request["timeEnd"] = document.getElementById('input_timeEnd').value;
 
-	//var sunday = [];
-	//sunday[0] = document.getElementById('input_sunday').value;
-	//sunday[1] = document.getElementById('input_sundayTimeStart').value;
-	//sunday[2] = document.getElementById('input_sundayTimeEnd').value;
-	//request["sunday"] = sunday;
-//
-	//var monday = [];
-	//monday[0] = document.getElementById('input_monday').value;
-	//monday[1] = document.getElementById('input_mondayTimeStart').value;
-	//monday[2] = document.getElementById('input_mondayTimeEnd').value;
-	//request["monday"] = monday;
-//
-	//var tuesday = [];
-	//tuesday[0] = document.getElementById('input_tuesday').value;
-	//tuesday[1] = document.getElementById('input_tuesdayTimeStart').value;
-	//tuesday[2] = document.getElementById('input_tuesdayTimeEnd').value;
-	//request["tuesday"] = tuesday;
-//
-	//var wednesday = [];
-	//wednesday[0] = document.getElementById('input_wednesday').value;
-	//wednesday[1] = document.getElementById('input_wednesdayTimeStart').value;
-	//wednesday[2] = document.getElementById('input_wednesdayTimeEnd').value;
-	//request["wednesday"] = wednesday;
-//
-	//var thursday = [];
-	//thursday[0] = document.getElementById('input_thursday').value;
-	//thursday[1] = document.getElementById('input_thursdayTimeStart').value;
-	//thursday[2] = document.getElementById('input_thursdayTimeEnd').value;
-	//request["thursday"] = thursday;
-//
-	//var friday = [];
-	//friday[0] = document.getElementById('input_friday').value;
-	//friday[1] = document.getElementById('input_fridayTimeStart').value;
-	//friday[2] = document.getElementById('input_fridayTimeEnd').value;
-	//request["friday"] = friday;
-//
-	//var saturday = [];
-	//saturday[0] = document.getElementById('input_saturday').value;
-	//saturday[1] = document.getElementById('input_saturdayTimeStart').value;
-	//saturday[2] = document.getElementById('input_saturdayTimeEnd').value;
-	//request["saturday"] = saturday;
+	$.each( domList, function( key, value ) {
+		var id = $(value).attr('id');
+		var attribute = id.replace( "input_", "" );
+		request[attribute] = document.getElementById(id).value;
+	});
+
 
 	var xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function() {
     if (xhttp.readyState == 4 && xhttp.status == 200) {
+    	 $("#modalNew").modal("toggle");
     	$('#calendar').fullCalendar( 'refetchEvents' );
     	}
   	}
@@ -151,7 +108,8 @@ function selectEvent(event, jsEvent, view){
 							'<td><input type="time" value=\'' + event.startTime + '\'></input> to <input type="time" value=\'' + event.endTime + '\'></input></td>' +
 						'</tr>' +
 					'</table>';
-	var repeat = 	'<h4>Repeat Options</h4>' +
+	var repeat = 	'<h4>Repeat Options</h4><br>' +
+					'repeat every <input id="weeks"></input> weeks on:' +
 					'<table>' +
 						'<tr>' +
 							'<th>Day</th>' +
@@ -161,45 +119,45 @@ function selectEvent(event, jsEvent, view){
 						'</tr>' +
 						'<tr>' +
 							'<td>Sunday:</td>' +
-							'<td><select><option value="1">No</option><option value="0">Yes</option></select></td>' +
-							'<td><input type="time"></input></td>' +
-							'<td><input type="time"></input></td>' +
+							'<td><select id="sunday"><option value="1">No</option><option value="0">Yes</option></select></td>' +
+							'<td><input type="time" id="sundayTimeStart"></input></td>' +
+							'<td><input type="time" id="sundayTimeEnd"></input></td>' +
 						'</tr>' +
 						'<tr>' +
 							'<td>Monday:</td>' +
-							'<td><select><option value="1">No</option><option value="0">Yes</option></select></td>' +
-							'<td><input type="time"></input></td>' +
-							'<td><input type="time"></input></td>' +
+							'<td><select id="monday"><option value="1">No</option><option value="0">Yes</option></select></td>' +
+							'<td><input type="time" id="mondayTimeStart"></input></td>' +
+							'<td><input type="time" id="mondayTimeStart"></input></td>' +
 						'</tr>' +
 						'<tr>' +
 							'<td>Tuesday:</td>' +
-							'<td><select><option value="1">No</option><option value="0">Yes</option></select></td>' +
-							'<td><input type="time"></input></td>' +
-							'<td><input type="time"></input></td>' +
+							'<td><select id="tuesday"><option value="1">No</option><option value="0">Yes</option></select></td>' +
+							'<td><input type="time" id="tuesdayTimeStart"></input></td>' +
+							'<td><input type="time" id="tuesdayTimeStart"></input></td>' +
 						'</tr>' +
 						'<tr>' +
 							'<td>Wednesday:</td>' +
-							'<td><select><option value="1">No</option><option value="0">Yes</option></select></td>' +
-							'<td><input type="time"></input></td>' +
-							'<td><input type="time"></input></td>' +
+							'<td><select id="wednesday"><option value="1">No</option><option value="0">Yes</option></select></td>' +
+							'<td><input type="time" id="wednesdayTimeStart"></input></td>' +
+							'<td><input type="time" id="wednesdayTimeStart"></input></td>' +
 						'</tr>' +
 						'<tr>' +
 							'<td>Thursday:</td>' +
-							'<td><select><option value="1">No</option><option value="0">Yes</option></select></td>' +
-							'<td><input type="time"></input></td>' +
-							'<td><input type="time"></input></td>' +
+							'<td><select id="thursday"><option value="1">No</option><option value="0">Yes</option></select></td>' +
+							'<td><input type="time" id="thursdayTimeStart"></input></td>' +
+							'<td><input type="time" id="thursdayTimeStart"></input></td>' +
 						'</tr>' +
 						'<tr>' +
 							'<td>Friday:</td>' +
-							'<td><select><option value="1">No</option><option value="0">Yes</option></select></td>' +
-							'<td><input type="time"></input></td>' +
-							'<td><input type="time"></input></td>' +
+							'<td><select id="friday"><option value="1">No</option><option value="0">Yes</option></select></td>' +
+							'<td><input type="time" id="fridayTimeStart"></input></td>' +
+							'<td><input type="time" id="fridayTimeStart"></input></td>' +
 						'</tr>' +
 						'<tr>' +
 							'<td>Saturday:</td>' +
-							'<td><select><option value="1">No</option><option value="0">Yes</option></select></td>' +
-							'<td><input type="time"></input></td>' +
-							'<td><input type="time"></input></td>' +
+							'<td><select id="saturday"><option value="1">No</option><option value="0">Yes</option></select></td>' +
+							'<td><input type="time" id="saturdayTimeStart"></input></td>' +
+							'<td><input type="time" id="saturdayTimeStart"></input></td>' +
 						'</tr>' +
 					'</table>';
            	$('#selectTitle').html(event.title);
@@ -214,15 +172,15 @@ function newSchedule(){
 					'<table>' +
 						'<tr>' +
 							'<td>Client:</td>' +
-							'<td><input id="input_client"></input></td>' +
+							'<td><input id="input_client_id"></input></td>' +
 						'</tr>' +
 						'<tr>' +
 							'<td>Personnel:</td>' +
-							'<td><input id="input_personnel"></input></td>' +
+							'<td><input id="input_personnel_id"></input></td>' +
 						'</tr>' +
 						'<tr>' +
 							'<td>Service:</td>' +
-							'<td><input id="input_service"></input></td>' +
+							'<td><input id="input_service_id"></input></td>' +
 						'</tr>' +
 						'<tr>' +
 							'<td>Description:</td>' +
@@ -236,7 +194,8 @@ function newSchedule(){
 							'<td><input id="input_timeStart" type="time"></input> to <input id="input_timeEnd" type="time"></input></td>' +
 						'</tr>' +
 					'</table>';
-	var repeat = 	'<h4>Repeat Options</h4>' +
+	var repeat = 	'<h4>Repeat Options</h4><br>' +
+					'repeat every <input id="input_weeks"></input> weeks on:' +
 					'<table>' +
 						'<tr>' +
 							'<th>Day</th>' +
@@ -246,47 +205,48 @@ function newSchedule(){
 						'</tr>' +
 						'<tr>' +
 							'<td>Sunday:</td>' +
-							'<td><select id="input_sunday"><option value="1">No</option><option value="0">Yes</option></select></td>' +
-							'<td><input id="input_sundayTimeStart" type="time"></input></td>' +
-							'<td><input id="input_sundayTimeEnd" type="time"></input></td>' +
+							'<td><select id="input_sunday"><option value="0">No</option><option value="1">Yes</option></select></td>' +
+							'<td><input type="time" id="input_sundayTimeStart"></input></td>' +
+							'<td><input type="time" id="input_sundayTimeEnd"></input></td>' +
 						'</tr>' +
 						'<tr>' +
 							'<td>Monday:</td>' +
-							'<td><select id="input_monday"><option value="1">No</option><option value="0">Yes</option></select></td>' +
-							'<td><input id="input_mondayTimeStart" type="time"></input></td>' +
-							'<td><input id="input_mondayTimeEnd" type="time"></input></td>' +
+							'<td><select id="input_monday"><option value="0">No</option><option value="1">Yes</option></select></td>' +
+							'<td><input type="time" id="input_mondayTimeStart"></input></td>' +
+							'<td><input type="time" id="input_mondayTimeStart"></input></td>' +
 						'</tr>' +
 						'<tr>' +
 							'<td>Tuesday:</td>' +
-							'<td><select id="input_tuesday"><option value="1">No</option><option value="0">Yes</option></select></td>' +
-							'<td><input id="input_tuesdayTimeStart" type="time"></input></td>' +
-							'<td><input id="input_tuesdayTimeEnd" type="time"></input></td>' +
+							'<td><select id="input_tuesday"><option value="0">No</option><option value="1">Yes</option></select></td>' +
+							'<td><input type="time" id="input_tuesdayTimeStart"></input></td>' +
+							'<td><input type="time" id="input_tuesdayTimeStart"></input></td>' +
 						'</tr>' +
 						'<tr>' +
 							'<td>Wednesday:</td>' +
-							'<td><select id="input_wednesday"><option value="1">No</option><option value="0">Yes</option></select></td>' +
-							'<td><input id="input_wednesdayTimeStart" type="time"></input></td>' +
-							'<td><input id="input_wednesdayTimeEnd" type="time"></input></td>' +
+							'<td><select id="input_wednesday"><option value="0">No</option><option value="1">Yes</option></select></td>' +
+							'<td><input type="time" id="input_wednesdayTimeStart"></input></td>' +
+							'<td><input type="time" id="input_wednesdayTimeStart"></input></td>' +
 						'</tr>' +
 						'<tr>' +
 							'<td>Thursday:</td>' +
-							'<td><select id="input_thursday"><option value="1">No</option><option value="0">Yes</option></select></td>' +
-							'<td><input id="input_thursdayTimeStart" type="time"></input></td>' +
-							'<td><input id="input_thursdayTimeEnd" type="time"></input></td>' +
+							'<td><select id="input_thursday"><option value="0">No</option><option value="1">Yes</option></select></td>' +
+							'<td><input type="time" id="input_thursdayTimeStart"></input></td>' +
+							'<td><input type="time" id="input_thursdayTimeStart"></input></td>' +
 						'</tr>' +
 						'<tr>' +
 							'<td>Friday:</td>' +
-							'<td><select id="input_friday"><option value="1">No</option><option value="0">Yes</option></select></td>' +
-							'<td><input id="input_fridayTimeStart" type="time"></input></td>' +
-							'<td><input id="input_fridayTimeEnd" type="time"></input></td>' +
+							'<td><select id="input_friday"><option value="0">No</option><option value="1">Yes</option></select></td>' +
+							'<td><input type="time" id="input_fridayTimeStart"></input></td>' +
+							'<td><input type="time" id="input_fridayTimeStart"></input></td>' +
 						'</tr>' +
 						'<tr>' +
 							'<td>Saturday:</td>' +
-							'<td><select id="input_saturday"><option value="1">No</option><option value="0">Yes</option></select></td>' +
-							'<td><input id="input_saturdayTimeStart" type="time"></input></td>' +
-							'<td><input id="input_saturdayTimeEnd" type="time"></input></td>' +
+							'<td><select id="input_saturday"><option value="0">No</option><option value="1">Yes</option></select></td>' +
+							'<td><input type="time" id="input_saturdayTimeStart"></input></td>' +
+							'<td><input type="time" id="input_saturdayTimeStart"></input></td>' +
 						'</tr>' +
 					'</table>';
+
            	$('#modalTitle').html(title);
            	$('#modalBody').html(details + repeat);
            	$('#modalNew').modal();
