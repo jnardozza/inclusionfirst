@@ -10,6 +10,7 @@ $(function() { // document ready
 		schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
 		editable: true,
 		scrollTime: '07:00',
+		displayEventEnd: true,
 		customButtons: {
   			    newSchedule: {
   			        text: 'Add Schedule',
@@ -30,6 +31,7 @@ $(function() { // document ready
 				duration: { days: 7 },
 				resourceGroupField: 'clientName',
 				slotDuration: '24:00',
+				displayEventEnd: true,
 				resources: {
        				url: 'get_resources.php',
        				type: 'POST'
